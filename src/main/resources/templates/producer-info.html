@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" th:src="@{../js/functions.js}" src="../js/functions.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="apple-touch-icon" type="image/png"
+          href="https://cpwebassets.codepen.io/assets/favicon/
+          apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+    <link rel="shortcut icon" type="image/x-icon"
+          href="https://cpwebassets.codepen.io/assets/favicon/
+          favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+    <link rel="mask-icon" type="image/x-icon"
+          href="https://cpwebassets.codepen.io/assets/favicon/
+          logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<body>
+<style>
+    .custom-button{
+        type: submit;
+        margin-left: 90%;
+    }
+    .custom-button1{
+        type: submit;
+        margin-left: 95%;
+    }
+</style>
+<header class="p-3 text-bg-dark" th:insert="'blocks/header.html'::header"/>
+<div class="container mt-5">
+    <div th:each="el: ${producer}" class="alert alert-info mt-2">
+        <form id="form" action="/producers/update" method="POST">
+            <button type="submit" class="btn btn-danger custom-button" id="close">Удалить</button>
+            <input type="text" value="delete" id="action" name="action" style="display: none;">
+            <input type="text" th:value="${el.idProducer}" name="idProducer" style="display: none;">
+            <input type="text" readonly th:value="${el.nameProducer}"
+                   name="nameProducer" style="font-size: 1.6rem; border: 0px; background: #CFF4FC">
+            <br>
+            <input type="hidden" class="form-control rounded-3" id="address-input"
+                   th:value="${el.addressProducer}" name="addressProducer">
+            <label id="label1" th:text="${el.addressProducer}"/>
+            <br>
+            <input type="hidden" class="form-control rounded-3" id="number-input"
+                   th:value="${el.numberProducer}" name="numberProducer">
+            <label id="label2" th:text="${el.numberProducer}"/>
+            <br>
+            <input type="hidden" class="form-control rounded-3" id="email-input"
+                   th:value="${el.emailProducer}" name="emailProducer">
+            <label id="label3" th:text="${el.emailProducer}"/>
+            <br>
+        </form>
+        <button class="btn btn-primary custom-button" onclick="change_info(); style.display='none'" id="change">Изменить</button>
+    </div>
+    <table class="table" id="myTable">
+        <thead>
+        <tr>
+            <th>Продукция</th>
+            <th>Тип продукции</th>
+            <th>Эко</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="el : ${products}">
+            <td th:text="${el.nameProduct}"/>
+            <td th:text="${el.typeProduct}"/>
+            <td th:text="${el.ecoProduct}"/>
+            <td><text th:text="${el.priceProduct}"/> MDL</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:insert="'blocks/footer.html':: footer"/>
+</body>
+</html>
